@@ -1,0 +1,59 @@
+
+
+[
+  {
+    "id": 1,
+    "image": "https://res.cloudinary.com/dgl1y6erd/image/upload/v1695427315/pngegg_3_ysgk0g.png",
+    "title": "Non-Veg Pizza",
+    "link": "view-all/non-veg-starters",
+    "price": 599
+
+  },
+  {
+    "id": 2,
+    "image": "https://res.cloudinary.com/dgl1y6erd/image/upload/v1695427315/pngegg_4_grgjgw.png",
+    "title": "Chicken Bun",
+    "link": "view-all/veg-starters",
+    "price": 259
+
+  },
+  {
+    "id": 3,
+    "image": "https://res.cloudinary.com/dgl1y6erd/image/upload/v1695427312/pngegg_7_gni443.png",
+    "title": "Hyderabadi Biryani",
+    "link": "view-all/soups",
+    "price": 299
+
+  },
+  {
+    "id": 4,
+    "image": "https://res.cloudinary.com/dgl1y6erd/image/upload/v1695427315/pngegg_2_ajbxf9.png",
+    "title": "Fish & Seafood",
+    "link": "view-all/fish-seafood",
+    "price": 249
+
+  },
+  {
+    "id": 5,
+    "image": "https://res.cloudinary.com/dgl1y6erd/image/upload/v1695427314/pngegg_1_mdsh3x.png",
+    "title": "Non Veg Meals",
+    "link": "view-all/noodles",
+    "price": 199
+
+  },
+  {
+    "id": 6,
+    "image": "https://res.cloudinary.com/dgl1y6erd/image/upload/v1695427315/pngegg_do9hld.png",
+    "title": "Salman Fish",
+    "link": "view-all/salads",
+    "price": 799
+
+  },
+  {
+    "id": 7,
+    "image": "https://res.cloudinary.com/dgl1y6erd/image/upload/v1695427313/pngegg_5_jizeze.png",
+    "title": "Salad",
+    "link": "view-all/desserts",
+        "price": 98
+  }
+]
