@@ -1,18 +1,26 @@
 "use client";
 // components/Header.tsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdDarkMode } from "react-icons/md";
 import { BsFillSunFill, BsHandbagFill } from "react-icons/bs";
 import Link from "next/link";
-
-const Header: React.FC = () => {
+import { useSelector } from "react-redux";
+import { usePathname } from "next/navigation";
+interface Cart {
+  cart: number;
+}
+const Header: React.FC<Cart> = ({ cart }) => {
+  const pathname = usePathname();
   const [isDarkMode, setIsDarkMode] = useState(false);
-
+  useEffect(() => {
+    console.log(cart);
+  }, [cart]);
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
     document.documentElement.classList.toggle("dark");
   };
-
+  const { food } = useSelector((state: any) => state.food);
+  Object.keys(food).length;
   return (
     <header
       className={`rounded-b-full sticky top-0 z-50 ${
@@ -32,7 +40,12 @@ const Header: React.FC = () => {
         </div>
         <div className="flex items-center md:gap-8 space-x-4">
           <div className="flex gap-5">
-            <Link href="/" className="text-orange-600 text-lg font-medium">
+            <Link
+              href="/"
+              className={`${
+                pathname != "/cart" && "text-orange-600"
+              } text-lg font-medium`}
+            >
               Home
             </Link>
             <Link
@@ -62,14 +75,17 @@ const Header: React.FC = () => {
           >
             {isDarkMode ? <BsFillSunFill /> : <MdDarkMode />}
           </button>
-          <div className="relative">
+          <Link href="/cart" className="relative">
             <button>
-              <BsHandbagFill size={28} />
+              <BsHandbagFill
+                size={28}
+                className={pathname == "/cart" ? "text-orange-600" : ""}
+              />
             </button>
             <span className="absolute bg-yellow-600 rounded-full px-1 text-xs bottom-2 right-1 transform translate-x-1/2 translate-y-1/2">
-              0
+              {Object.keys(food).length || 0}
             </span>
-          </div>
+          </Link>
         </div>
       </div>
     </header>

@@ -4,8 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import menuData from "./menuData.json";
 import "../../globals.css";
+import { useDispatch } from "react-redux";
+import { foodActions } from "@/Redux/Reducer/reducer";
 
 const ExploreMenu: React.FC = () => {
+  const [cart, setCart] = useState<{ [key: number]: number }>({});
+
   const [isHovered, setIsHovered] = useState(null);
 
   const handleHover = (e: any) => {
@@ -15,20 +19,35 @@ const ExploreMenu: React.FC = () => {
   const handleMouseLeave = () => {
     setIsHovered(null);
   };
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(isHovered);
-  }, [isHovered]);
+  const updateCard = (cart: any) => {
+    dispatch(foodActions.FOOD(cart));
+  };
 
-  const router = useRouter();
-  const [cart, setCart] = useState<{ [key: number]: number }>({});
-
-  const addToCart = (itemId: number) => {
+  const addToCart = (itemId: any) => {
     setCart((prevCart) => ({
       ...prevCart,
       [itemId]: (prevCart[itemId] || 0) + 1,
     }));
   };
+
+  const deleteFromCart = (itemId: any) => {
+    if (cart[itemId] > 1) {
+      setCart((prevCart) => ({
+        ...prevCart,
+        [itemId]: (prevCart[itemId] || 0) - 1,
+      }));
+    } else {
+      const newCart = { ...cart };
+      delete newCart[itemId];
+      setCart(newCart);
+    }
+  };
+
+  React.useEffect(() => {
+    updateCard(cart);
+  }, [cart]);
 
   return (
     <>
@@ -52,12 +71,30 @@ const ExploreMenu: React.FC = () => {
                 <p className="menu-card-price">₹{item.price?.toFixed(2)}</p>
               </div>
               <div className="flex justify-between items-center">
-                <button
-                  onClick={() => addToCart(item.id)}
-                  className="hover:bg-orange-300 bg-orange-200  text-black px-4 py-2 rounded-xl text-xs"
-                >
-                  Add to Cart
-                </button>
+                {Object.keys(cart).includes(item.title) ? (
+                  <div className="bg-gray-200 flex justify-between overflow-hidden rounded-xl w-24">
+                    <button
+                      className="bg-orange-600 px-2"
+                      onClick={() => deleteFromCart(item.title)}
+                    >
+                      -
+                    </button>
+                    {cart[item.title]}
+                    <button
+                      className="bg-orange-600 px-2"
+                      onClick={() => addToCart(item.title)}
+                    >
+                      +
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => addToCart(item.title)}
+                    className="hover:bg-orange-300 bg-orange-200  text-black px-4 py-2 rounded-xl text-xs"
+                  >
+                    Add to Cart
+                  </button>
+                )}
               </div>
             </div>
             {/* Half outside image */}
